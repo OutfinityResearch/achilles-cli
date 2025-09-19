@@ -1,0 +1,23 @@
+# Module Spec: LLMAgentClient.js
+
+## 1. Description
+This module provides a client for interacting with various Large Language Models (LLMs). It abstracts the specific API details of each provider and offers a unified interface for performing tasks.
+
+## 2. Exported Classes
+- `class LLMAgentClient`
+  - `constructor()`: Resolves provider credentials (exactly as normalised by `LLMConfiguration`), validates support, and caches provider endpoints along with fast/deep model names.
+  - `getFastModel(): string`: Exposes the identifier of the configured fast model.
+  - `getDeepModel(): string`: Exposes the identifier of the configured deep model.
+  - `getProvider(): string`: Returns the provider slug (e.g., `openai`).
+  - `async doTaskFast(reason, context, taskDescription)`: Streams the outbound prompt for transparency, then executes the request using the fast model, returning the parsed LLM response.
+  - `async doTaskDeep(reason, context, taskDescription)`: Same as `doTaskFast`, but targets the deep model.
+
+## 5. Dependencies
+- `https`: For making API calls.
+
+## 6. Implementation Details
+- The constructor must throw a descriptive error when the normalized configuration variables are missing to encourage the caller to run `configure()` first.
+- The client should expose simple getters for the active provider and selected fast/deep models so agents can surface them in logs.
+- The progress reporter must display the `reason` strings asynchronously (spinner-like) while the network request is in-flight without blocking the I/O loop.
+- Before the progress reporter begins, the client should type the outbound prompt to stdout at a human reading pace so users can inspect the exact question being sent.
+- Every task invocation must log the provider/model combination being used, and API errors should bubble up with readable messages.

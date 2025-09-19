@@ -1,0 +1,12 @@
+# Module Spec: cli/quicksum.js
+
+## Behaviour
+- Parse numbers from process arguments.
+- Validate inputs are finite numbers.
+- Print the sum and append the message `Sum: <value>` to quicksum.log in the current directory.
+- Log entries must include ISO timestamps.
+- Exit with code 0 on success, 1 on invalid input.
+
+## Implementation Notes
+- Use Node.js built-in modules only.
+- Export functions for reuse: parseArgs, computeTotal, appendLog, runCli.

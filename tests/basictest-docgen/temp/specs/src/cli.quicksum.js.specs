@@ -1,0 +1,3 @@
+# Module Spec: cli/quicksum.js
+- Run as `node quicksum.js <numbers>`
+- Output total and append to quicksum.log

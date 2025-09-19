@@ -1,0 +1,22 @@
+# Module Spec: achilles-doc-generator.js
+
+## 1. Description
+This module is responsible for generating a single HTML documentation file from all the specification documents in the `specs` directory.
+
+## 2. Exported API
+- `async main()`: Orchestrates the end-to-end documentation build — configures the LLM, gathers specs, generates HTML, writes the output, and emits user-facing success or failure messages.
+- `async getAllSpecs()`: Recursively walks the `specs/` directory and returns an ordered array of `{ path, content }` pairs for every `.md` and `.specs` file.
+- `async generateHtml(specs)`: Builds the LLM context from the collected specs, calls the deep model, and returns the raw HTML string (supporting both plain-string and `{ content }` style responses).
+- `async saveHtml(htmlContent)`: Persists the generated HTML to `specs.html` at the repository root using UTF-8 encoding.
+
+## 3. Dependencies
+- `fs.promises`: For asynchronous file system operations.
+- `path`: For handling file paths.
+- `src/services/LLMAgentClient.js`: To communicate with the LLM.
+- `src/services/specsManager.js`: To read the specification files.
+
+## 4. Implementation Details
+- The `getAllSpecs` function will recursively read Markdown and `.specs` files in the `specs` directory.
+- The `generateHtml` function will use `doTaskDeep` to process the content and generate the HTML. The prompt should instruct the LLM to create a table of contents and cross-references. The function must accept either a plain string response or an object containing a `content` field and throw a descriptive error if no HTML is returned.
+- When the LLM call fails, the module must log a concise error message (without a stack trace) and skip writing `specs.html`.
+- The final output should be a single, self-contained HTML file.

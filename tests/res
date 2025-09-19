@@ -1,0 +1,31 @@
+Found .env file at /home/salboaie/work/achilles-cli/.env
+[LLMConfiguration] Using provider: codestral
+[LLMConfiguration] Fast model: codestral-latest
+[LLMConfiguration] Deep model: codestral-latest
+[LLMAgentClient] provider=codestral fast_model=codestral-latest deep_model=codestral-latest
+Found valid LLM key.
+
+============================================================
+Start test: planner
+[planner] workspace: /home/salboaie/work/achilles-cli/tests/basictest-planner/temp
+[planner] started_at_ms: 1758289784360
+Running smoke test for achilles-planner...
+[planner-child-stdout] Found .env file at /home/salboaie/work/achilles-cli/.env
+
+[planner-child-stdout] [LLMConfiguration] Using provider: codestral
+[LLMConfiguration] Fast model: codestral-latest
+[LLMConfiguration] Deep model: codestral-latest
+
+[planner-child-stdout] [LLMAgentClient] provider=codestral fast_model=codestral-latest deep_model=codestral-latest
+
+[planner-child-stdout] Achilles Planner is ready. Type "stop" to exit or "start over" to reset the context.
+
+[planner-child-stdout] [LLMAgentClient] Using model codestral-latest
+
+[planner-child-stdout] Analyzing input to determine intent... |
+[planner-child-stdout] Analyzing input to determine intent... /
+[planner-child-stdout] Analyzing input to determine intent... -
+[planner-child-stdout] Analyzing input to determine intent... \
+[planner-child-stdout] Analyzing input to determine intent... |
+[planner-child-stdout] Analyzing input to determine intent... /
+[planner-child-stdout]                                         
