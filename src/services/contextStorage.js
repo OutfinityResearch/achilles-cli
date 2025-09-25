@@ -25,12 +25,20 @@ function getHistoryPath() {
   return path.join(getHistoryDir(), 'history.md');
 }
 
-function getIdeasDir() {
+function getLegacyIdeasDir() {
   return path.join(getAchillesDir(), '.ideas');
 }
 
-function getIdeasPath() {
-  return path.join(getIdeasDir(), 'ideas.md');
+function getLegacyIdeasPath() {
+  return path.join(getLegacyIdeasDir(), 'ideas.md');
+}
+
+function getSuggestionsDir() {
+  return path.join(getAchillesDir(), '.suggestions');
+}
+
+function getSuggestionsPath() {
+  return path.join(getSuggestionsDir(), 'suggestions.md');
 }
 
 async function ensureDir(dirPath) {
@@ -40,7 +48,7 @@ async function ensureDir(dirPath) {
 async function ensureStructure() {
   await ensureDir(getAchillesDir());
   await ensureDir(getHistoryDir());
-  await ensureDir(getIdeasDir());
+  await ensureDir(getSuggestionsDir());
 }
 
 async function readFileIfExists(filePath) {
@@ -85,12 +93,24 @@ async function appendHistoryEntry(entry) {
   await appendFile(getHistoryPath(), line);
 }
 
-async function loadIdeas() {
-  return readFileIfExists(getIdeasPath());
+async function loadSuggestions() {
+  const primary = await readFileIfExists(getSuggestionsPath());
+  if (primary && primary.trim()) {
+    return primary;
+  }
+
+  // Backwards compatibility with previous ideas storage.
+  const legacy = await readFileIfExists(getLegacyIdeasPath());
+  if (!legacy) {
+    return '';
+  }
+
+  await saveSuggestions(legacy);
+  return legacy;
 }
 
-async function saveIdeas(content) {
-  await writeFile(getIdeasPath(), content || '');
+async function saveSuggestions(content) {
+  await writeFile(getSuggestionsPath(), content || '');
 }
 
 module.exports = {
@@ -100,6 +120,6 @@ module.exports = {
   loadHistory,
   saveHistory,
   appendHistoryEntry,
-  loadIdeas,
-  saveIdeas
+  loadSuggestions,
+  saveSuggestions
 };

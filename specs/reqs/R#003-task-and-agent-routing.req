@@ -1,0 +1,10 @@
+# Title
+Task Parsing And Agent Routing
+
+## Description
+Each planner agent receives section-specific text and must emit structured tasks whose `target` begins with the specification file they affect. Tasks can represent info, create, update, delete, or suggestion operations. Suggestions must encode status metadata and, when `accepted`, include a follow-up instruction that identifies the owning agent by inspecting the file extension. The shared task factory must ensure every task has a unique id and captures the original text for auditing.
+
+## Scope
+- specs/src/planning/parsers.js.spec
+- specs/src/planning/task.js.spec
+- specs/src/planning/agents/suggestionsAgent.js.spec

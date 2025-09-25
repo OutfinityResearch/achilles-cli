@@ -1,0 +1,8 @@
+# Title
+Specification File Management
+
+## Description
+Specification storage must enforce naming and directory rules: requirements live under `specs/reqs/` using `R#XXX-name.req`, module specs mirror source paths with a `.spec` suffix, and detailed design specs use `.ds`. The manager must offer CRUD helpers, list spec and design spec files, load all document details (path + content), compute the next requirement number, and guard against directory traversal. Legacy requirement filenames should trigger a warning but remain readable for backward compatibility.
+
+## Scope
+- specs/src/services/specsManager.js.spec

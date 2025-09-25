@@ -1,0 +1,10 @@
+# Title
+Specs Decompiler Utility
+
+## Description
+Offer a command-line helper that mirrors source files into `.spec` documents. The tool must call the configured LLM to infer the specification from the source, supply relevant project context (vision, requirements, existing spec, related design specs), normalise the output with the canonical Purpose/Public Methods/Dependencies sections, and log the generated path. It should accept a single source path argument and rely on `specsManager` for all reads/writes.
+
+## Scope
+- bin/specs-decompiler
+- src/specs-decompiler.js
+- specs/src/specs-decompiler.js.spec

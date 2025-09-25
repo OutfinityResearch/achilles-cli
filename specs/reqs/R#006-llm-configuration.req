@@ -1,0 +1,9 @@
+# Title
+LLM Configuration Guardrails
+
+## Description
+Planner startup must locate environment configuration for fast and deep LLM models. If either model name or API key is missing for all providers, it writes a populated `.env` template in the workspace root, informs the user via an `LLM_CONFIG_MISSING` error, and aborts initialisation. When configuration is present, it exports `ACHILLES_LLM_PROVIDER`, `ACHILLES_LLM_API_KEY`, `ACHILLES_LLM_FAST_MODEL`, and `ACHILLES_LLM_DEEP_MODEL` for downstream services.
+
+## Scope
+- specs/src/services/LLMConfiguration.js.spec
+- specs/src/planner.js.spec

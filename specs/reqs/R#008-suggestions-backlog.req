@@ -1,0 +1,10 @@
+# Title
+Suggestions Backlog Lifecycle
+
+## Description
+The planner must persist AI suggestions in `.achilles/.suggestions/suggestions.md`, migrating legacy `.ideas/ideas.md` content on first access. Suggestion entries follow the pattern `- [status] path: detail`, where status is `accepted`, `rejected`, or `ignored`. Rejected ideas are removed from the backlog, accepted ideas trigger immediate execution against the referenced file via the appropriate sub-agent, and ignored entries remain untouched for later review.
+
+## Scope
+- specs/src/planning/agents/suggestionsAgent.js.spec
+- specs/src/services/contextStorage.js.spec
+- specs/src/planning/index.js.spec

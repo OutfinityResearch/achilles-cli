@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const { spawn, spawnSync } = require('child_process');
 
-const tempDir = process.argv[2];
-const repoRoot = process.argv[3] || path.resolve(__dirname, '../../..');
+const tempDir = process.argv[2] || path.join(__dirname, 'temp');
+const repoRoot = process.argv[3] || path.resolve(__dirname, '../..');
 
 function writeFile(targetPath, content) {
     fs.mkdirSync(path.dirname(targetPath), { recursive: true });
@@ -12,22 +12,31 @@ function writeFile(targetPath, content) {
 }
 
 async function run() {
-    console.log('Running smoke test for achilles-codeGenerator...');
+    console.log('Running smoke test for the code generator...');
 
     fs.rmSync(tempDir, { recursive: true, force: true });
     fs.mkdirSync(path.join(tempDir, 'specs', 'reqs'), { recursive: true });
     fs.mkdirSync(path.join(tempDir, 'specs', 'src', 'cli'), { recursive: true });
 
-    writeFile(path.join(tempDir, 'specs', 'vision.md'), '# Vision\nQuickSum CLI helps developers sanity-check simple arithmetic from the terminal using Node.js.');
-    writeFile(path.join(tempDir, 'specs', 'reqs', 'REQ#1_quicksum.md'), '# Requirement: QuickSum CLI\n- Implemented in Node.js (CommonJS).\n- Accept any number of numeric arguments.\n- Output their total to stdout.\n- Append the result to a local log file named quicksum.log.');
+    writeFile(
+        path.join(tempDir, 'specs', 'vision.md'),
+        '# Title\nQuickSum Demo\n\n## Purpose\nProvide a reference CLI that sums command-line numbers and records the results.\n\n## Technology\nNode.js (CommonJS) with local filesystem storage.'
+    );
+    writeFile(
+        path.join(tempDir, 'specs', 'reqs', 'R#001-quicksum.req'),
+        '# Title\nQuickSum CLI Behaviour\n\n## Description\nThe QuickSum CLI must accept any number of numeric arguments, output their total, and append a log entry containing the sum with an ISO timestamp. It must exit with status 1 when inputs are invalid.\n\n## Scope\n- specs/src/cli/quicksum.js.spec'
+    );
 
-    const specPath = path.join(tempDir, 'specs', 'src', 'cli', 'quicksum.js.specs');
-    writeFile(specPath, '# Module Spec: cli/quicksum.js\n\n## Behaviour\n- Parse numbers from process arguments.\n- Validate inputs are finite numbers.\n- Print the sum and append the message `Sum: <value>` to quicksum.log in the current directory.\n- Log entries must include ISO timestamps.\n- Exit with code 0 on success, 1 on invalid input.\n\n## Implementation Notes\n- Use Node.js built-in modules only.\n- Export functions for reuse: parseArgs, computeTotal, appendLog, runCli.');
+    const specPath = path.join(tempDir, 'specs', 'src', 'cli', 'quicksum.js.spec');
+    writeFile(
+        specPath,
+        '# Purpose\nImplement the QuickSum CLI utilities for parsing arguments, computing totals, logging, and running the CLI.\n\n## Public Methods\n- `parseArgs(args: string[]): number[]` – Convert CLI arguments to an array of finite numbers, throwing on invalid input.\n- `computeTotal(values: number[]): number` – Return the sum of provided numbers.\n- `appendLog(value: number): Promise<void>` – Append the formatted sum with ISO timestamp to quicksum.log in the cwd.\n- `runCli(): Promise<void>` – Parse process arguments, compute the total, print it, log it, and set the exit code appropriately.\n\n## Dependencies\n- `fs/promises`\n- `path`'
+    );
 
-    const generatorPath = path.join(repoRoot, 'src', 'achilles-codeGenerator.js');
+    const generatorPath = path.join(repoRoot, 'src', 'code-generator.js');
     const child = spawn('node', [generatorPath], {
         cwd: tempDir,
-        env: { ...process.env, ACHILLES_RUN_ONCE: 'true' },
+        env: { ...process.env, CODEGEN_RUN_ONCE: 'true' },
         stdio: ['pipe', 'pipe', 'pipe']
     });
 
@@ -78,10 +87,10 @@ async function run() {
     const logContent = fs.readFileSync(logPath, 'utf8');
     assert.match(logContent, /35/, 'Log file should record the computed total');
 
-    console.log('achilles-codeGenerator smoke test passed.');
+    console.log('Code generator smoke test passed.');
 }
 
 run().catch((error) => {
-    console.error('achilles-codeGenerator smoke test failed:', error);
+    console.error('Code generator smoke test failed:', error);
     process.exitCode = 1;
 });

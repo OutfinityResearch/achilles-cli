@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# Get the directory of the script
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-
-# Run the achilles-doc-generator
-node "$SCRIPT_DIR/../src/achilles-doc-generator.js"

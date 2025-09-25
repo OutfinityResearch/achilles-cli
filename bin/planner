@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Get the directory of the script
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+# Detect optional flags
+USE_FAST=0
+if [[ "$1" == "-fast" ]]; then
+  USE_FAST=1
+  shift
+fi
+
+if [[ $USE_FAST -eq 1 ]]; then
+  export PLANNER_USE_FAST=1
+else
+  unset PLANNER_USE_FAST
+fi
+
+# Run the planner CLI, forwarding remaining arguments
+node "$SCRIPT_DIR/../src/planner.js" "$@"

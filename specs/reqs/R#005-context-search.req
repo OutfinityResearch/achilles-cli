@@ -1,0 +1,9 @@
+# Title
+Specification Retrieval Heuristics
+
+## Description
+The planner must maintain an in-memory cache of requirements, specs, and design specs using a text-search engine such as FlexSearch (or an equivalent fast full-text index). For every task, it should log which files are considered relevant alongside their scores, prioritise explicit hint files, and expose helpers to refresh or reload individual documents after updates. Retrieval should return only the most relevant entries to keep prompts concise.
+
+## Scope
+- specs/src/services/specsContext.js.spec
+- specs/src/services/specsManager.js.spec

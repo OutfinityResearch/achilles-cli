@@ -4,7 +4,101 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41446a88-405c-40c4-833f-44c5ce1d5eda" name="Changes" comment="" />
+    <list default="true" id="41446a88-405c-40c4-833f-44c5ce1d5eda" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/root-cause" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/specs-decompiler" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/reqs/R#001-planning-cli.req" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/reqs/R#002-intent-engine.req" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/reqs/R#003-task-and-agent-routing.req" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/reqs/R#004-task-execution.req" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/reqs/R#005-context-search.req" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/reqs/R#006-llm-configuration.req" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/reqs/R#007-specs-management.req" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/reqs/R#008-suggestions-backlog.req" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/reqs/R#009-root-cause.req" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/reqs/R#010-specs-decompiler.req" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/code-generator.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/doc-generator.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/planner.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/planning/agent-utils.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/planning/agents/designSpecsAgent.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/planning/agents/infoAgent.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/planning/agents/memoryAgent.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/planning/agents/requirementsAgent.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/planning/agents/specsAgent.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/planning/agents/suggestionsAgent.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/planning/agents/visionAgent.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/planning/index.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/planning/intent.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/planning/parsers.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/planning/prompts.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/planning/task.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/root-cause.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/services/LLMAgentClient.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/services/LLMConfiguration.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/services/contextStorage.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/services/diff.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/services/markdownParser.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/services/specsContext.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/services/specsManager.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/src/specs-decompiler.js.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/planner.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/planning/agent-utils.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/planning/agents/designSpecsAgent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/planning/agents/infoAgent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/planning/agents/memoryAgent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/planning/agents/requirementsAgent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/planning/agents/specsAgent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/planning/agents/suggestionsAgent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/planning/agents/visionAgent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/planning/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/planning/intent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/planning/parsers.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/planning/prompts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/planning/task.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/root-cause.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/markdownParser.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/specsContext.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/specs-decompiler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/achilles-build" beforeDir="false" afterPath="$PROJECT_DIR$/bin/code-generator" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/achilles-cli" beforeDir="false" afterPath="$PROJECT_DIR$/bin/planner" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/achilles-htmldoc" beforeDir="false" afterPath="$PROJECT_DIR$/bin/doc-generator" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/reqs/REQ#10_spec_constraints.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/reqs/REQ#11_doc_generator.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/reqs/REQ#12_llm_call_ux.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/reqs/REQ#13_llm_configuration.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/reqs/REQ#14_context_storage.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/reqs/REQ#1_planner_agent.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/reqs/REQ#2_codegen_agent.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/reqs/REQ#3_spec_management.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/reqs/REQ#4_llm_client.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/reqs/REQ#5_user_interaction.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/reqs/REQ#6_technical_reqs.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/reqs/REQ#7_diff_service.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/reqs/REQ#8_clarification_questions.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/reqs/REQ#9_vision_and_req_constraints.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/src/achilles-codeGenerator.js.specs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/src/achilles-doc-generator.js.specs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/src/achilles-planner.js.specs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/src/services/LLMAgentClient.js.specs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/src/services/LLMConfiguration.js.specs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/src/services/contextStorage.js.specs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/src/services/diff.js.specs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/src/services/specsManager.js.specs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/vision.md" beforeDir="false" afterPath="$PROJECT_DIR$/specs/vision.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/achilles-codeGenerator.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/code-generator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/achilles-doc-generator.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/doc-generator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/achilles-planner.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/LLMConfiguration.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/LLMConfiguration.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/contextStorage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/contextStorage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/diff.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/diff.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/specsManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/specsManager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/basictest-codegen/codegen.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/basictest-codegen/codegen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/basictest-docgen/docgen.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/basictest-docgen/docgen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/basictest-planner/planner.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/basictest-planner/planner.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,28 +110,28 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="32uen5oEFk2fnJlJaGyj8YcID5m" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/salboaie/work/achilles-cli",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/salboaie/work/achilles-cli&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="specs.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/achilles-cli/tests/basictest-docgen/temp/specs.html" useBuiltInWebServerPort="true">
       <method v="2" />
@@ -57,6 +151,8 @@
       <option name="presentableId" value="Default" />
       <updated>1758275048766</updated>
       <workItem from="1758275049788" duration="12302000" />
+      <workItem from="1758524264697" duration="3867000" />
+      <workItem from="1758809584750" duration="610000" />
     </task>
     <servers />
   </component>

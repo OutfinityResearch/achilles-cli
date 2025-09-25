@@ -1,0 +1,18 @@
+# Title
+Task Execution SOP Compliance
+
+## Description
+Each specialised planning agent (vision, requirements, specs, designSpecs, memory, suggestions, info) must gather relevant context via `specsContext`, build its own LLM prompt, and perform CRUD operations on the corresponding files. Document-oriented agents load existing content, call the LLM (fast/deep depending on `PLANNER_USE_FAST`), persist results with `specsManager`, and print chapter-aware diffs. The memory agent regenerates `.achilles/memory`, the suggestions agent maintains `.achilles/.suggestions/suggestions.md` and dispatches follow-up tasks, and the info agent displays the matched requirement/spec/design spec bodies. After all tasks run, the planner prints a summary indicating completion.
+
+## Scope
+- specs/src/planning/index.js.spec
+- specs/src/planning/agents/visionAgent.js.spec
+- specs/src/planning/agents/requirementsAgent.js.spec
+- specs/src/planning/agents/specsAgent.js.spec
+- specs/src/planning/agents/designSpecsAgent.js.spec
+- specs/src/planning/agents/memoryAgent.js.spec
+- specs/src/planning/agents/suggestionsAgent.js.spec
+- specs/src/planning/agents/infoAgent.js.spec
+- specs/src/services/specsContext.js.spec
+- specs/src/services/diff.js.spec
+- specs/src/services/contextStorage.js.spec

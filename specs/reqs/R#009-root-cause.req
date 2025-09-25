@@ -1,0 +1,10 @@
+# Title
+Root Cause Analysis Agent
+
+## Description
+Provide a CLI agent that accepts a behaviour description, gathers relevant requirements/specs/design specs, and uses the LLM to produce hypotheses, validation steps, and recommended planner updates. Output must follow the markdown structure Behaviour Summary, Hypotheses, Validation, Recommended Planner Updates, and reference specific files when suggesting changes.
+
+## Scope
+- bin/root-cause
+- src/root-cause.js
+- specs/src/root-cause.js.spec

@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const { spawn } = require('child_process');
 
-const tempDir = process.argv[2];
-const repoRoot = process.argv[3] || path.resolve(__dirname, '../../..');
+const tempDir = process.argv[2] || path.join(__dirname, 'temp');
+const repoRoot = process.argv[3] || path.resolve(__dirname, '../..');
 
 function writeFile(targetPath, content) {
     fs.mkdirSync(path.dirname(targetPath), { recursive: true });
@@ -12,17 +12,26 @@ function writeFile(targetPath, content) {
 }
 
 async function run() {
-    console.log('Running smoke test for achilles-doc-generator...');
+    console.log('Running smoke test for the documentation generator...');
 
     fs.rmSync(tempDir, { recursive: true, force: true });
     fs.mkdirSync(path.join(tempDir, 'specs', 'reqs'), { recursive: true });
     fs.mkdirSync(path.join(tempDir, 'specs', 'src'), { recursive: true });
 
-    writeFile(path.join(tempDir, 'specs', 'vision.md'), '# Vision\nQuickTools provides tiny Node.js utilities to make command-line workflows easier.');
-    writeFile(path.join(tempDir, 'specs', 'reqs', 'REQ#1_quicksum.md'), '# Requirement: QuickSum\n- Summarise command-line numbers and log the totals using Node.js.');
-    writeFile(path.join(tempDir, 'specs', 'src', 'cli.quicksum.js.specs'), '# Module Spec: cli/quicksum.js\n- Run as `node quicksum.js <numbers>`\n- Output total and append to quicksum.log');
+    writeFile(
+        path.join(tempDir, 'specs', 'vision.md'),
+        '# Title\nQuickTools Suite\n\n## Purpose\nDeliver small productivity-focused Node.js utilities for command-line workflows.\n\n## Technology\nNode.js (CommonJS) with markdown specifications stored under `specs/`.'
+    );
+    writeFile(
+        path.join(tempDir, 'specs', 'reqs', 'R#001-quicksum.req'),
+        '# Title\nQuickSum Utility\n\n## Description\nProvide a CLI command that sums numeric arguments and appends totals to a quicksum.log file along with timestamps.\n\n## Scope\n- specs/src/cli/quicksum.js.spec'
+    );
+    writeFile(
+        path.join(tempDir, 'specs', 'src', 'cli', 'quicksum.js.spec'),
+        '# Purpose\nDescribe the QuickSum CLI module responsible for parsing arguments, calculating totals, logging, and running the CLI entry point.\n\n## Public Methods\n- `parseArgs(args: string[]): number[]` – Validate and coerce CLI inputs into numbers.\n- `computeTotal(values: number[]): number` – Sum numeric inputs.\n- `appendLog(total: number): Promise<void>` – Append the computed total with an ISO timestamp to quicksum.log.\n- `runCli(): Promise<void>` – Execute the CLI workflow, setting the process exit code.\n\n## Dependencies\n- `fs/promises`'
+    );
 
-    const docGeneratorPath = path.join(repoRoot, 'src', 'achilles-doc-generator.js');
+    const docGeneratorPath = path.join(repoRoot, 'src', 'doc-generator.js');
     const child = spawn('node', [docGeneratorPath], {
         cwd: tempDir,
         env: process.env,
@@ -66,10 +75,10 @@ async function run() {
         }
     }
 
-    console.log('achilles-doc-generator smoke test passed.');
+    console.log('Documentation generator smoke test passed.');
 }
 
 run().catch((error) => {
-    console.error('achilles-doc-generator smoke test failed:', error);
+    console.error('Documentation generator smoke test failed:', error);
     process.exitCode = 1;
 });

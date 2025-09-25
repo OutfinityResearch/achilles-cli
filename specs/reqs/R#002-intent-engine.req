@@ -1,0 +1,10 @@
+# Title
+Intent Engine Context Loading
+
+## Description
+The intent layer must ensure `.achilles/` storage exists, load the project vision, memory, history, suggestions, and full requirement/spec/design spec inventories (paths plus content). It splits raw input into section line arrays using case-insensitive labels and preserves unmatched text under `info`. For the Ideas chapter it extracts idea status/description metadata. The engine must expose the ordered section list for downstream agents.
+
+## Scope
+- specs/src/planning/intent.js.spec
+- specs/src/services/contextStorage.js.spec
+- specs/src/services/specsManager.js.spec

@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const readline = require('readline');
 
 const PROVIDERS = {
     codestral: {
@@ -52,6 +51,8 @@ function findEnvFile() {
     return null;
 }
 
+const PROVIDER_LIST = Object.keys(PROVIDERS);
+
 function loadEnvFile(filePath) {
     const content = fs.readFileSync(filePath, 'utf-8');
     const lines = content.split('\n');
@@ -75,85 +76,47 @@ function loadEnvFile(filePath) {
     }
 }
 
-async function promptForConfig() {
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
-
-    function ask(question) {
-        return new Promise(resolve => rl.question(question, resolve));
-    }
-
-    let provider;
-    while (!PROVIDERS[provider]) {
-        console.log('Select the LLM provider to configure:');
-        PROVIDER_LIST.forEach((name, index) => {
-            console.log(`${index + 1}. ${name}`);
-        });
-        const selection = await ask('> ');
-        const chosen = PROVIDER_LIST[parseInt(selection, 10) - 1];
-        if (chosen && PROVIDERS[chosen]) {
-            provider = chosen;
-        } else {
-            console.log('Invalid selection. Please try again.');
-        }
-    }
-
-    const providerConfig = PROVIDERS[provider];
-    const apiKey = await ask(`Enter your ${provider.toUpperCase()} API key: `);
-    const fastModel = await ask(`Enter fast model name (leave empty for ${providerConfig.defaultFastModel}): `);
-    const deepModel = await ask(`Enter deep model name (leave empty for ${providerConfig.defaultDeepModel}): `);
-
-    rl.close();
-    return {
-        provider,
-        apiKey,
-        fastModel: fastModel || providerConfig.defaultFastModel,
-        deepModel: deepModel || providerConfig.defaultDeepModel
-    };
-}
-
-const PROVIDER_LIST = Object.keys(PROVIDERS);
-
-function createEnvFile(provider, apiKey, fastModel, deepModel) {
-    const overrides = {};
-    const upperProvider = provider.toUpperCase();
-    overrides[`${upperProvider}_API_KEY`] = apiKey;
-    if (fastModel) {
-        overrides[`${upperProvider}_FAST_MODEL`] = fastModel;
-    }
-    if (deepModel) {
-        overrides[`${upperProvider}_DEEP_MODEL`] = deepModel;
-    }
-
+function createEnvTemplate(overrides = {}) {
     const lines = [
         '# Achilles CLI - LLM provider configuration',
-        '# Fill in the API key and model names for the provider you want to use.',
-        '# The configuration service will pick the first provider that defines a key.',
+        '# Provide API keys and model names for at least one provider below.',
+        '# The planner will use the first provider that has an API key configured.',
         ''
     ];
 
     for (const name of PROVIDER_LIST) {
         const { apiKeyVar, fastModelVar, deepModelVar, defaultFastModel, defaultDeepModel } = PROVIDERS[name];
+        const upper = name.toUpperCase();
         const apiValue = overrides[apiKeyVar] || '';
         const fastValue = overrides[fastModelVar] || defaultFastModel;
         const deepValue = overrides[deepModelVar] || defaultDeepModel;
-        lines.push(`# ${name.toUpperCase()} configuration`);
+        lines.push(`# ${upper} configuration`);
         lines.push(`${apiKeyVar}=${apiValue}`);
         lines.push(`${fastModelVar}=${fastValue}`);
         lines.push(`${deepModelVar}=${deepValue}`);
         lines.push('');
     }
 
-    fs.writeFileSync('.env', `${lines.join('\n').trim()}\n`, 'utf-8');
+    return `${lines.join('\n').trim()}\n`;
 }
 
-function pickProviderFromEnv() {
+function pickProviderFromEnv(requireModels = false) {
     for (const name of PROVIDER_LIST) {
-        const { apiKeyVar } = PROVIDERS[name];
-        if (process.env[apiKeyVar]) {
-            return name;
+        const { apiKeyVar, fastModelVar, deepModelVar, defaultFastModel, defaultDeepModel } = PROVIDERS[name];
+        const apiKey = process.env[apiKeyVar];
+        if (!apiKey) {
+            continue;
+        }
+
+        const fastModel = process.env[fastModelVar] || (requireModels ? null : defaultFastModel);
+        const deepModel = process.env[deepModelVar] || (requireModels ? null : defaultDeepModel);
+        if (!requireModels || (fastModel && deepModel)) {
+            return {
+                name,
+                apiKey,
+                fastModel,
+                deepModel
+            };
         }
     }
     return null;
@@ -166,17 +129,41 @@ function resolveModel(providerName, variant) {
     return process.env[key] || fallback;
 }
 
-function applyRuntimeConfig(providerName) {
-    const providerConfig = PROVIDERS[providerName];
-    const apiKey = process.env[providerConfig.apiKeyVar];
-    if (!apiKey) {
-        throw new Error(`Missing API key for provider ${providerName}.`);
+function applyRuntimeConfig(provider) {
+    const providerConfig = PROVIDERS[provider.name];
+    process.env.ACHILLES_LLM_PROVIDER = provider.name;
+    process.env.ACHILLES_LLM_API_KEY = provider.apiKey;
+    process.env.ACHILLES_LLM_FAST_MODEL = provider.fastModel || resolveModel(provider.name, 'fast');
+    process.env.ACHILLES_LLM_DEEP_MODEL = provider.deepModel || resolveModel(provider.name, 'deep');
+}
+
+function ensureEnvTemplateExists() {
+    const envPath = path.join(process.cwd(), '.env');
+    if (fs.existsSync(envPath)) {
+        return envPath;
     }
 
-    process.env.ACHILLES_LLM_PROVIDER = providerName;
-    process.env.ACHILLES_LLM_API_KEY = apiKey;
-    process.env.ACHILLES_LLM_FAST_MODEL = resolveModel(providerName, 'fast');
-    process.env.ACHILLES_LLM_DEEP_MODEL = resolveModel(providerName, 'deep');
+    const template = createEnvTemplate();
+    fs.writeFileSync(envPath, template, 'utf-8');
+    return envPath;
+}
+
+function verifyConfiguration() {
+    const provider = pickProviderFromEnv(true);
+    if (provider) {
+        return provider;
+    }
+
+    const envPath = ensureEnvTemplateExists();
+    const message = [
+        'LLM configuration is missing.',
+        'An .env template has been generated with all supported providers.',
+        `Please update ${envPath} with your API keys and preferred fast/deep models.`,
+        'After updating the file, re-run the planner.'
+    ];
+    const error = new Error(message.join(' '));
+    error.code = 'LLM_CONFIG_MISSING';
+    throw error;
 }
 
 async function configure() {
@@ -186,21 +173,10 @@ async function configure() {
         loadEnvFile(envPath);
     }
 
-    let providerName = pickProviderFromEnv();
+    const provider = verifyConfiguration();
+    applyRuntimeConfig(provider);
 
-    if (!providerName) {
-        console.log('No configured LLM provider found. Starting interactive configuration.');
-        const config = await promptForConfig();
-        createEnvFile(config.provider, config.apiKey, config.fastModel, config.deepModel);
-        process.env[`${config.provider.toUpperCase()}_API_KEY`] = config.apiKey;
-        process.env[`${config.provider.toUpperCase()}_FAST_MODEL`] = config.fastModel;
-        process.env[`${config.provider.toUpperCase()}_DEEP_MODEL`] = config.deepModel;
-        providerName = config.provider;
-    }
-
-    applyRuntimeConfig(providerName);
-
-    console.log('[LLMConfiguration] Using provider:', providerName);
+    console.log('[LLMConfiguration] Using provider:', provider.name);
     console.log('[LLMConfiguration] Fast model:', process.env.ACHILLES_LLM_FAST_MODEL);
     console.log('[LLMConfiguration] Deep model:', process.env.ACHILLES_LLM_DEEP_MODEL);
 }

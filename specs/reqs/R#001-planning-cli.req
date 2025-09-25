@@ -1,0 +1,16 @@
+# Title
+Planning CLI Interaction
+
+## Description
+The planner must expose a readline-based CLI that greets the user with guidance on the required request structure, reports how many suggestions are recorded, and continuously accepts input. Every non-empty turn is parsed into the seven mandated sections (info, vision, Requirements, Memory, Specs, Design Specifications, Ideas). Parsed sections are rendered as a canonical markdown document, summarised for the user, and converted into ordered tasks that announce "Thinking about …" before execution. Typing `stop` exits gracefully, while blank input is ignored.
+
+## Scope
+- specs/src/planner.js.spec
+- specs/src/planning/index.js.spec
+- specs/src/planning/agents/infoAgent.js.spec
+- specs/src/planning/agents/visionAgent.js.spec
+- specs/src/planning/agents/requirementsAgent.js.spec
+- specs/src/planning/agents/memoryAgent.js.spec
+- specs/src/planning/agents/specsAgent.js.spec
+- specs/src/planning/agents/designSpecsAgent.js.spec
+- specs/src/planning/agents/suggestionsAgent.js.spec
